@@ -1,0 +1,49 @@
+:root {
+    --sidebar-width: 240px;
+    --primary-color: #4e73df;
+}
+
+body {
+    background-color: #f4f6f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+    position: sticky;
+    top: 0;
+}
+
+.sidebar .nav-link {
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.sidebar .nav-link:hover, .sidebar .nav-link.active {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.stat-card {
+    border-radius: 10px;
+}
+
+.main-content {
+    min-height: 100vh;
+}
+
+.table thead th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: #5a5c69;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 10px;
+}
