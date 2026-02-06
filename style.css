@@ -1,6 +1,7 @@
 :root {
     --sidebar-width: 240px;
     --primary-color: #4e73df;
+    --dark-blue: #224abe;
 }
 
 body {
@@ -11,15 +12,17 @@ body {
 .sidebar {
     width: var(--sidebar-width);
     height: 100vh;
-    background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+    background: linear-gradient(180deg, var(--primary-color) 10%, var(--dark-blue) 100%);
     position: sticky;
     top: 0;
+    transition: all 0.3s;
 }
 
 .sidebar .nav-link {
     color: rgba(255,255,255,0.8);
     margin-bottom: 10px;
     border-radius: 8px;
+    padding: 12px 15px;
 }
 
 .sidebar .nav-link:hover, .sidebar .nav-link.active {
@@ -29,6 +32,11 @@ body {
 
 .stat-card {
     border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
 }
 
 .main-content {
@@ -38,12 +46,29 @@ body {
 .table thead th {
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #5a5c69;
+    letter-spacing: 0.05em;
 }
 
 .btn-primary {
     background-color: var(--primary-color);
     border: none;
     padding: 10px;
+}
+.btn-danger {
+    background-color: #e74a3b;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: #be2617;
+    box-shadow: 0 4px 10px rgba(231, 74, 59, 0.3);
+}
+
+.badge {
+    font-weight: 500;
 }
