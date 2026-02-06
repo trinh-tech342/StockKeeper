@@ -11,18 +11,11 @@
 <body>
     <div class="d-flex">
         <div class="sidebar bg-gradient-dark p-3">
-            <h3 class="text-white mb-4"><i class="fas fa-box-open me-2"></i>KHO X</h3>
+            <h3 class="text-white mb-4"><i class="fas fa-box-open me-2"></i>KHO TP</h3>
             <nav class="nav flex-column">
-                <a class="nav-link active" href="#"><i class="fas fa-home me-2"></i> Tổng quan</a>
-                <a class="nav-link" href="https://trinh-tech342.github.io/Truy-xuat-nguon-goc/" target="_blank">
-                    <i class="fas fa-file-import me-2"></i> Nhập hàng
-                </a>
-                <a class="nav-link" href="https://docs.google.com/spreadsheets/d/1EqP_Uph6b7L-UPYcmmrQqVvUuGbhQaaCIbGPtm3LVJw/edit?gid=472003237#gid=472003237" target="_blank">
-                    <i class="fas fa-file-import me-2"></i> Xuất hàng
-                </a>
-                <a class="nav-link" href="https://docs.google.com/spreadsheets/d/1cmW4AeKQ_L2-KSnBRrVP5uz-05oaY_tAbUo9FgOi_uA/edit?gid=0#gid=0" target="_blank">
-                    <i class="fas fa-file-import me-2"></i> Báo cáo
-                </a>
+                <a class="nav-link active" href="https://docs.google.com/spreadsheets/d/1cmW4AeKQ_L2-KSnBRrVP5uz-05oaY_tAbUo9FgOi_uA/edit?gid=0#gid=0"><i class="fas fa-home me-2"></i> Tổng quan</a>
+                <a class="nav-link" href="https://trinh-tech342.github.io/THUMUA_DASHBOARD/"><i class="fas fa-file-import me-2"></i> Nhập hàng</a>
+                <a class="nav-link" href="https://trinh-tech342.github.io/QC_dashboard/"><i class="fas fa-file-export me-2"></i> Xuất hàng</a>
             </nav>
         </div>
 
@@ -39,7 +32,7 @@
                 <h5 class="mb-3"><i class="fas fa-plus-circle text-primary me-2"></i>Nhập Giao Dịch Mới</h5>
                 <form id="inventory-form" class="row g-3">
                     <div class="col-md-3">
-                        <input type="text" id="itemName" class="form-control" placeholder="Tên sản phẩm" required>
+                        <input type="text" id="itemName" class="form-control" placeholder="Tên sản phẩm" required list="product-suggestions">
                     </div>
                     <div class="col-md-2">
                         <select id="itemCategory" class="form-select">
@@ -60,31 +53,55 @@
                 </form>
             </div>
 
+            <div class="card shadow-sm border-0 mb-4 p-4 bg-light border-start border-info border-5">
+                <h5 class="mb-3"><i class="fas fa-search text-info me-2"></i>Tra cứu & Lọc dữ liệu</h5>
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <label class="form-label small fw-bold text-muted">Tìm theo tên (Gõ để thấy gợi ý):</label>
+                        <input type="text" id="searchName" class="form-control form-control-lg" placeholder="Nhập tên sản phẩm..." list="product-suggestions">
+                        <datalist id="product-suggestions"></datalist>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold text-muted">Lọc theo loại:</label>
+                        <select id="searchCategory" class="form-select form-select-lg">
+                            <option value="Tất cả">Tất cả danh mục</option>
+                            <option value="Trà">Trà</option>
+                            <option value="Cao">Cao</option>
+                            <option value="Đặc sản">Đặc sản</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-end mt-2">
+                        <button onclick="exportToPDF()" class="btn btn-danger">
+                            <i class="fas fa-file-pdf me-2"></i>Xuất Báo Cáo PDF (Theo kết quả lọc)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="row mb-4">
                 <div class="col-md-4">
                     <div class="stat-card bg-white p-3 shadow-sm border-start border-primary border-4">
-                        <p class="text-muted mb-1">Tồn kho hiện tại</p>
-                        <h3 id="stat-stock">0</h3>
+                        <p class="text-muted mb-1 small fw-bold">TỒN KHO HIỆN TẠI</p>
+                        <h2 id="stat-stock" class="text-primary">0</h2>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="stat-card bg-white p-3 shadow-sm border-start border-success border-4">
-                        <p class="text-muted mb-1">Tổng nhập tháng</p>
-                        <h3 id="stat-import">0</h3>
+                        <p class="text-muted mb-1 small fw-bold">TỔNG NHẬP (ĐANG LỌC)</p>
+                        <h2 id="stat-import" class="text-success">0</h2>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="stat-card bg-white p-3 shadow-sm border-start border-danger border-4">
-                        <p class="text-muted mb-1">Tổng xuất tháng</p>
-                        <h3 id="stat-export">0</h3>
+                        <p class="text-muted mb-1 small fw-bold">TỔNG XUẤT (ĐANG LỌC)</p>
+                        <h2 id="stat-export" class="text-danger">0</h2>
                     </div>
                 </div>
             </div>
 
             <div class="card shadow-sm border-0 p-3">
-                <h5 class="mb-3">Danh Sách Chi Tiết</h5>
-                <table class="table align-middle">
-                    <thead class="table-light">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
                         <tr>
                             <th>Tên Sản Phẩm</th>
                             <th>Danh Mục</th>
@@ -99,6 +116,8 @@
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
